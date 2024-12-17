@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-const ContactForm = ({ onSubmit }) => {
-  const [error, setError] = useState("");
+const ContactForm = () => {
+  const dispatch = useDispatch();
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -21,9 +22,12 @@ const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = (values, { resetForm }) => {
     const { name, number } = values;
-
-    setError("");
-    onSubmit({ name, number });
+    const newContact = {
+      id: Date.now(),
+      name,
+      number,
+    };
+    dispatch(addContact(newContact));
     resetForm();
   };
 
@@ -74,9 +78,6 @@ const ContactForm = ({ onSubmit }) => {
           </button>
         </Form>
       </Formik>
-
-      {}
-      {error && <div className={styles.formAlert}>{error}</div>}
     </div>
   );
 };

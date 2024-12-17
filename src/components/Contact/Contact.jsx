@@ -1,7 +1,7 @@
 import styles from "./Contact.module.css";
 import { FaUser, FaPhone } from "react-icons/fa";
 
-const Contact = ({ name, number, onDelete }) => (
+const Contact = ({ id, name, number, onDelete }) => (
   <li className={styles.contact}>
     <div className={styles.contactInfo}>
       <div className={styles.name}>
@@ -13,7 +13,7 @@ const Contact = ({ name, number, onDelete }) => (
         <span>{number}</span>
       </div>
     </div>
-    <button className={styles.deleteButton} onClick={onDelete}>
+    <button className={styles.deleteButton} onClick={() => onDelete(id)}>
       Delete
     </button>
   </li>
